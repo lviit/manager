@@ -1,0 +1,21 @@
+query products {
+  products {
+    __typename
+    data {
+      id
+      attributes {
+        Name
+        Price
+        image {
+          data {
+            attributes {
+              url
+            }
+          }
+        }
+        Brand
+        Website
+      }
+    }
+  }
+}
