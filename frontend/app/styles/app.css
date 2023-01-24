@@ -520,3 +520,7 @@ video {
 .font-bold {
   font-weight: 700;
 }
+
+body {
+  font-family: "IBM Plex Sans", sans-serif;
+}
