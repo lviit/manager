@@ -2,9 +2,12 @@ schema:
   - http://localhost:1337/graphql:
       headers:
         Authorization: "Bearer: ${API_TOKEN}"
-documents: 'app/api/**/*.graphql'
+documents: "app/api/**/*.graphql"
 generates:
-  app/api/generates.ts:
+  app/api/generates/documentNodes.ts:
+    plugins:
+      - typescript-document-nodes
+  app/api/generates/types.ts:
     plugins:
       - typescript
       - typescript-operations

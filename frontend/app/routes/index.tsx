@@ -1,27 +1,29 @@
 import { json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
 import { graphqlRequest } from "~/api/graphqlRequest";
-import productsQuery from "../api/products.graphql";
+import { type CategoriesQuery } from "~/api/generates/types";
+import { Categories } from "~/api/generates/documentNodes";
 
 import type { LoaderFunction } from "@remix-run/node";
-import type { ProductsQuery } from "~/api/generates";
 
 // TODO: fix typings
 export const loader: LoaderFunction = async () => {
-  const products = await graphqlRequest<ProductsQuery>(productsQuery);
+  const products = await graphqlRequest<CategoriesQuery>(Categories);
 
   return json(products);
 };
 
 export default function Index() {
-  const data = useLoaderData<ProductsQuery>();
+  const data = useLoaderData<CategoriesQuery>();
 
   return (
     <div>
-      <h1>It's alive!</h1>
+      <h1>categories</h1>
       <ul>
-        {data?.products?.data.map(({ id, attributes }) => (
-          <li key={id}>{attributes?.Name}</li>
+        {data?.categories?.data.map(({ id, attributes }) => (
+          <li key={id}>
+            <Link to={`/category/${id}`}>{attributes?.Name}</Link>
+          </li>
         ))}
       </ul>
     </div>

@@ -43,8 +43,17 @@ export type Category = {
   __typename?: 'Category';
   Name: Scalars['String'];
   createdAt?: Maybe<Scalars['DateTime']>;
+  products?: Maybe<ProductRelationResponseCollection>;
   publishedAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+
+export type CategoryProductsArgs = {
+  filters?: InputMaybe<ProductFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
 export type CategoryEntity = {
@@ -71,18 +80,15 @@ export type CategoryFiltersInput = {
   id?: InputMaybe<IdFilterInput>;
   not?: InputMaybe<CategoryFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<CategoryFiltersInput>>>;
+  products?: InputMaybe<ProductFiltersInput>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
 export type CategoryInput = {
   Name?: InputMaybe<Scalars['String']>;
+  products?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
-};
-
-export type CategoryRelationResponseCollection = {
-  __typename?: 'CategoryRelationResponseCollection';
-  data: Array<CategoryEntity>;
 };
 
 export type DateTimeFilterInput = {
@@ -468,22 +474,14 @@ export type PaginationArg = {
 export type Product = {
   __typename?: 'Product';
   Brand: Scalars['String'];
-  Category?: Maybe<CategoryRelationResponseCollection>;
   Name: Scalars['String'];
   Price: Scalars['Float'];
   Website?: Maybe<Scalars['String']>;
+  category?: Maybe<CategoryEntityResponse>;
   createdAt?: Maybe<Scalars['DateTime']>;
   image?: Maybe<UploadFileEntityResponse>;
   publishedAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
-};
-
-
-export type ProductCategoryArgs = {
-  filters?: InputMaybe<CategoryFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
 export type ProductEntity = {
@@ -505,11 +503,11 @@ export type ProductEntityResponseCollection = {
 
 export type ProductFiltersInput = {
   Brand?: InputMaybe<StringFilterInput>;
-  Category?: InputMaybe<CategoryFiltersInput>;
   Name?: InputMaybe<StringFilterInput>;
   Price?: InputMaybe<FloatFilterInput>;
   Website?: InputMaybe<StringFilterInput>;
   and?: InputMaybe<Array<InputMaybe<ProductFiltersInput>>>;
+  category?: InputMaybe<CategoryFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   id?: InputMaybe<IdFilterInput>;
   not?: InputMaybe<ProductFiltersInput>;
@@ -520,12 +518,17 @@ export type ProductFiltersInput = {
 
 export type ProductInput = {
   Brand?: InputMaybe<Scalars['String']>;
-  Category?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
   Name?: InputMaybe<Scalars['String']>;
   Price?: InputMaybe<Scalars['Float']>;
   Website?: InputMaybe<Scalars['String']>;
+  category?: InputMaybe<Scalars['ID']>;
   image?: InputMaybe<Scalars['ID']>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type ProductRelationResponseCollection = {
+  __typename?: 'ProductRelationResponseCollection';
+  data: Array<ProductEntity>;
 };
 
 export enum PublicationState {
@@ -1039,6 +1042,18 @@ export type UsersPermissionsUserRelationResponseCollection = {
   __typename?: 'UsersPermissionsUserRelationResponseCollection';
   data: Array<UsersPermissionsUserEntity>;
 };
+
+export type CategoriesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CategoriesQuery = { __typename?: 'Query', categories?: { __typename?: 'CategoryEntityResponseCollection', data: Array<{ __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', Name: string } | null }> } | null };
+
+export type CategoryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CategoryQuery = { __typename?: 'Query', category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', Name: string, products?: { __typename?: 'ProductRelationResponseCollection', data: Array<{ __typename?: 'ProductEntity', id?: string | null, attributes?: { __typename?: 'Product', Name: string, Price: number, Brand: string, Website?: string | null, image?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } | null } | null }> } | null } | null } | null } | null };
+
+export type ProductCardFragment = { __typename?: 'ProductEntity', id?: string | null, attributes?: { __typename?: 'Product', Name: string, Price: number, Brand: string, Website?: string | null, image?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } | null } | null };
 
 export type ProductsQueryVariables = Exact<{ [key: string]: never; }>;
 

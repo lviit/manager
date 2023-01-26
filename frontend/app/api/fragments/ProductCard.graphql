@@ -1,0 +1,16 @@
+fragment ProductCard on ProductEntity {
+  id
+  attributes {
+    Name
+    Price
+    image {
+      data {
+        attributes {
+          url
+        }
+      }
+    }
+    Brand
+    Website
+  }
+}

@@ -1,0 +1,15 @@
+query category {
+  category {
+    data {
+      id
+      attributes {
+        Name
+        products {
+          data {
+            ...ProductCard
+          }
+        }
+      }
+    }
+  }
+}

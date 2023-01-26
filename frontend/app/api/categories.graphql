@@ -1,0 +1,10 @@
+query categories {
+  categories {
+    data {
+      id
+      attributes {
+        Name
+      }
+    }
+  }
+}
