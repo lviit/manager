@@ -24,11 +24,16 @@ export const Categories = gql`
       id
       attributes {
         Name
+        products {
+          data {
+            ...ProductCard
+          }
+        }
       }
     }
   }
 }
-    `;
+    ${ProductCard}`;
 export const Category = gql`
     query category {
   category {
