@@ -1,5 +1,5 @@
-query category {
-  category {
+query category($id: ID) {
+  category(id: $id) {
     data {
       id
       attributes {

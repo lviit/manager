@@ -35,8 +35,8 @@ export const Categories = gql`
 }
     ${ProductCard}`;
 export const Category = gql`
-    query category {
-  category {
+    query category($id: ID) {
+  category(id: $id) {
     data {
       id
       attributes {
