@@ -1057,7 +1057,9 @@ export type CategoryQuery = { __typename?: 'Query', category?: { __typename?: 'C
 
 export type ProductCardFragment = { __typename?: 'ProductEntity', id?: string | null, attributes?: { __typename?: 'Product', Name: string, Price: number, Brand: string, Website?: string | null, image?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } | null } | null };
 
-export type ProductsQueryVariables = Exact<{ [key: string]: never; }>;
+export type ProductQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['ID']>;
+}>;
 
 
-export type ProductsQuery = { __typename?: 'Query', products?: { __typename: 'ProductEntityResponseCollection', data: Array<{ __typename?: 'ProductEntity', id?: string | null, attributes?: { __typename?: 'Product', Name: string, Price: number, Brand: string, Website?: string | null, image?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } | null } | null }> } | null };
+export type ProductQuery = { __typename?: 'Query', product?: { __typename?: 'ProductEntityResponse', data?: { __typename?: 'ProductEntity', id?: string | null, attributes?: { __typename?: 'Product', Name: string, Price: number, Brand: string, Website?: string | null } | null } | null } | null };

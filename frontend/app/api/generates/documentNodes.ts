@@ -51,13 +51,18 @@ export const Category = gql`
   }
 }
     ${ProductCard}`;
-export const Products = gql`
-    query products {
-  products {
-    __typename
+export const Product = gql`
+    query product($id: ID) {
+  product(id: $id) {
     data {
-      ...ProductCard
+      id
+      attributes {
+        Name
+        Price
+        Brand
+        Website
+      }
     }
   }
 }
-    ${ProductCard}`;
+    `;

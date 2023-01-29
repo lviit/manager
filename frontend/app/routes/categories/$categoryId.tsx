@@ -1,5 +1,5 @@
 import { json, type LoaderArgs } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
+import { Link, Outlet, useLoaderData } from "@remix-run/react";
 import { graphqlRequest } from "~/api/graphqlRequest";
 import { type CategoryQuery } from "~/api/generates/types";
 import { Category } from "~/api/generates/documentNodes";
@@ -15,9 +15,6 @@ export const loader: LoaderFunction = async ({ params: { categoryId } }: LoaderA
 
 export default function Index() {
   const data = useLoaderData<CategoryQuery>();
-
-  console.log("data", data);
-
   const { Name, products } = data?.category?.data?.attributes ?? {};
 
   return (
@@ -35,10 +32,11 @@ export default function Index() {
         {products?.data.map(({ id, attributes }) => (
           <li key={id} className="bg-white/5 rounded-xl p-2 text-lg flex gap-5">
             <div className="p-8 rounded-xl bg-white/5" />
-            <Link to={`/products/${id}`}>{attributes?.Name}</Link>
+            <Link to={`${id}`}>{attributes?.Name}</Link>
           </li>
         ))}
       </ul>
+      <Outlet />
     </div>
   );
 }

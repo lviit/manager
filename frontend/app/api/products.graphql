@@ -1,8 +1,0 @@
-query products {
-  products {
-    __typename
-    data {
-      ...ProductCard
-    }
-  }
-}
