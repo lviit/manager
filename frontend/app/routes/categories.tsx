@@ -1,10 +1,10 @@
-import { json } from "@remix-run/node";
-import { Link, Outlet, useLoaderData } from "@remix-run/react";
+import { json, type LoaderFunction } from "@remix-run/node";
+import { Link, useLoaderData, useMatches, useOutlet } from "@remix-run/react";
+import { motion } from "framer-motion";
+
 import { graphqlRequest } from "~/api/graphqlRequest";
 import { type CategoriesQuery } from "~/api/generates/types";
 import { Categories } from "~/api/generates/documentNodes";
-
-import type { LoaderFunction } from "@remix-run/node";
 
 // TODO: fix typings
 export const loader: LoaderFunction = async () => {
@@ -15,6 +15,8 @@ export const loader: LoaderFunction = async () => {
 
 export default function Index() {
   const data = useLoaderData<CategoriesQuery>();
+  const [_, __, categoryPage] = useMatches();
+  const outlet = useOutlet();
 
   return (
     <div className="text-white/90 bg-stone-900 flex gap-5 p-5">
@@ -41,7 +43,8 @@ export default function Index() {
           ))}
         </ul>
       </div>
-      <Outlet />
+
+      <motion.section key={categoryPage?.pathname}>{outlet}</motion.section>
     </div>
   );
 }

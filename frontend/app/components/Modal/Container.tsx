@@ -1,6 +1,12 @@
 import type { ReactNode } from "react";
+import { motion } from "framer-motion";
 
-// TODO: fix close button positioning
+const container = {
+  hidden: { y: -50, opacity: 0 },
+  exit: { y: 50, opacity: 0 },
+  visible: { y: 0, opacity: 1 },
+};
+
 export const Container = ({
   children,
   onClose,
@@ -8,7 +14,13 @@ export const Container = ({
   children: ReactNode;
   onClose?: () => void;
 }): JSX.Element => (
-  <div className="bg-stone-800 rounded-xl p-5 flex flex-col min-w-[500px]">
+  <motion.div
+    className="bg-stone-800 rounded-xl p-5 flex flex-col min-w-[500px]"
+    variants={container}
+    initial="hidden"
+    animate="visible"
+    exit="exit"
+  >
     {children}
     {onClose ? (
       <button
@@ -19,5 +31,5 @@ export const Container = ({
         Close
       </button>
     ) : null}
-  </div>
+  </motion.div>
 );
