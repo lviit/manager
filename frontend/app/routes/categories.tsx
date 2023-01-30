@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { graphqlRequest } from "~/api/graphqlRequest";
 import { type CategoriesQuery } from "~/api/generates/types";
 import { Categories } from "~/api/generates/documentNodes";
-import * as Button from "~/components/Button";
+import * as Card from "~/components/Card";
 
 // TODO: fix typings
 export const loader: LoaderFunction = async () => {
@@ -26,15 +26,16 @@ export default function Index() {
         <ul className="flex flex-col gap-5">
           {data?.categories?.data.map(({ id, attributes }) => (
             <li key={id} className="flex flex-col bg-white/5 rounded-xl">
-              <ul className="flex gap-5 p-5">
-                {attributes?.products?.data.map(({ id }) => (
-                  <li key={id} className="p-16 rounded-xl bg-white/5" />
-                ))}
-              </ul>
-              <div className="py-2 px-4 flex justify-between items-center bg-white/5 rounded-b-xl">
-                <span className="font-semibold text-2xl">{attributes?.Name}</span>
-                <Button.AsLink to={`/categories/${id}`}>Details</Button.AsLink>
-              </div>
+              <Card.Large
+                title={attributes?.Name ?? ""}
+                links={[{ title: "Details", to: `/categories/${id}` }]}
+              >
+                <ul className="flex gap-5 p-5">
+                  {attributes?.products?.data.map(({ id }) => (
+                    <li key={id} className="p-16 rounded-xl bg-white/5" />
+                  ))}
+                </ul>
+              </Card.Large>
             </li>
           ))}
         </ul>
