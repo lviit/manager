@@ -26,7 +26,7 @@ export default function Index() {
           {data?.categories?.data.map(({ id, attributes }) => (
             <li key={id} className="flex flex-col bg-white/5 rounded-xl">
               <ul className="flex gap-5 p-5">
-                {attributes?.products?.data.map(({ id, attributes }) => (
+                {attributes?.products?.data.map(({ id }) => (
                   <li key={id} className="p-16 rounded-xl bg-white/5" />
                 ))}
               </ul>
