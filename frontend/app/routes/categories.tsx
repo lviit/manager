@@ -1,10 +1,11 @@
 import { json, type LoaderFunction } from "@remix-run/node";
-import { Link, useLoaderData, useMatches, useOutlet } from "@remix-run/react";
+import { useLoaderData, useMatches, useOutlet } from "@remix-run/react";
 import { motion } from "framer-motion";
 
 import { graphqlRequest } from "~/api/graphqlRequest";
 import { type CategoriesQuery } from "~/api/generates/types";
 import { Categories } from "~/api/generates/documentNodes";
+import * as Button from "~/components/Button";
 
 // TODO: fix typings
 export const loader: LoaderFunction = async () => {
@@ -32,18 +33,12 @@ export default function Index() {
               </ul>
               <div className="py-2 px-4 flex justify-between items-center bg-white/5 rounded-b-xl">
                 <span className="font-semibold text-2xl">{attributes?.Name}</span>
-                <Link
-                  to={`/categories/${id}`}
-                  className=" bg-white/5 hover:bg-white/10 py-2 px-5 rounded-xl transition-colors ease-in-out duration-200 text-base uppercase font-bold tracking-widest"
-                >
-                  Details
-                </Link>
+                <Button.AsLink to={`/categories/${id}`}>Details</Button.AsLink>
               </div>
             </li>
           ))}
         </ul>
       </div>
-
       <motion.section key={categoryPage?.pathname}>{outlet}</motion.section>
     </div>
   );
