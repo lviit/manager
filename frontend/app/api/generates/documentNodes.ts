@@ -4,6 +4,7 @@ export const ProductCard = gql`
   id
   attributes {
     Name
+    Slug
     Price
     image {
       data {
@@ -18,12 +19,13 @@ export const ProductCard = gql`
 }
     `;
 export const Categories = gql`
-    query categories {
-  categories {
+    query categories($filters: CategoryFiltersInput) {
+  categories(filters: $filters) {
     data {
       id
       attributes {
         Name
+        Slug
         products {
           data {
             ...ProductCard
@@ -34,26 +36,9 @@ export const Categories = gql`
   }
 }
     ${ProductCard}`;
-export const Category = gql`
-    query category($id: ID) {
-  category(id: $id) {
-    data {
-      id
-      attributes {
-        Name
-        products {
-          data {
-            ...ProductCard
-          }
-        }
-      }
-    }
-  }
-}
-    ${ProductCard}`;
-export const Product = gql`
-    query product($id: ID) {
-  product(id: $id) {
+export const Products = gql`
+    query products($filters: ProductFiltersInput) {
+  products(filters: $filters) {
     data {
       id
       attributes {

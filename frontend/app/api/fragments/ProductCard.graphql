@@ -2,6 +2,7 @@ fragment ProductCard on ProductEntity {
   id
   attributes {
     Name
+    Slug
     Price
     image {
       data {

@@ -3,14 +3,16 @@ import { useLoaderData, useOutlet } from "@remix-run/react";
 import { AnimatePresence, motion } from "framer-motion";
 
 import { graphqlRequest } from "~/api/graphqlRequest";
-import { type CategoryQuery } from "~/api/generates/types";
-import { Category } from "~/api/generates/documentNodes";
+import { type CategoriesQuery } from "~/api/generates/types";
+import { Categories } from "~/api/generates/documentNodes";
 import * as Button from "~/components/Button";
 import * as Card from "~/components/Card";
 
 // TODO: fix typings
-export const loader: LoaderFunction = async ({ params: { categoryId } }: LoaderArgs) => {
-  const category = await graphqlRequest<CategoryQuery>(Category, { id: categoryId });
+export const loader: LoaderFunction = async ({ params: { categorySlug } }: LoaderArgs) => {
+  const category = await graphqlRequest<CategoriesQuery>(Categories, {
+    filters: { Slug: { eq: categorySlug } },
+  });
 
   return json(category);
 };
@@ -43,8 +45,9 @@ const heading = {
 };
 
 export default function Index() {
-  const data = useLoaderData<CategoryQuery>();
-  const { Name, products } = data?.category?.data?.attributes ?? {};
+  const data = useLoaderData<CategoriesQuery>();
+  const [category] = data?.categories?.data ?? [];
+  const { Name, products } = category?.attributes ?? {};
   const outlet = useOutlet();
 
   return (
@@ -61,7 +64,7 @@ export default function Index() {
       <motion.ul className="flex flex-col gap-5" variants={list} initial="hidden" animate="visible">
         {products?.data.map(({ id, attributes }) => (
           <motion.li key={id} variants={card}>
-            <Card.Small to={`${id}`}>
+            <Card.Small to={`${attributes?.Slug}`}>
               <div className="p-8 rounded-xl bg-white/5" />
               {attributes?.Name}
             </Card.Small>

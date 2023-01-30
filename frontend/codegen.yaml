@@ -10,4 +10,5 @@ generates:
   app/api/generates/types.ts:
     plugins:
       - typescript
-      - typescript-operations
+      - typescript-operations:
+          avoidOptionals: true

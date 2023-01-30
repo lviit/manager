@@ -4,23 +4,26 @@ import { useNavigate } from "react-router-dom";
 import type { LoaderFunction } from "@remix-run/node";
 
 import { graphqlRequest } from "~/api/graphqlRequest";
-import { type ProductQuery } from "~/api/generates/types";
-import { Product } from "~/api/generates/documentNodes";
+import { type ProductsQuery } from "~/api/generates/types";
+import { Products } from "~/api/generates/documentNodes";
 import * as Modal from "~/components/Modal";
 import { useLoaderDataWithUnmount } from "~/utils/useLoaderDataWithUnmount";
 
 // TODO: fix typings
-export const loader: LoaderFunction = async ({ params: { productId } }: LoaderArgs) => {
-  const category = await graphqlRequest<ProductQuery>(Product, { id: productId });
+export const loader: LoaderFunction = async ({ params: { productSlug } }: LoaderArgs) => {
+  const products = await graphqlRequest<ProductsQuery>(Products, {
+    filters: { Slug: { eq: productSlug } },
+  });
 
-  return json(category);
+  return json(products);
 };
 
 export default function Index() {
   const navigate = useNavigate();
   const [_, __, prevPage] = useMatches();
-  const data = useLoaderDataWithUnmount<ProductQuery>();
-  const { Name, Price, Brand, Website } = data?.product?.data?.attributes || {};
+  const data = useLoaderDataWithUnmount<ProductsQuery>();
+  const [product] = data?.products?.data ?? [];
+  const { Name, Price, Brand, Website } = product?.attributes || {};
 
   return (
     <Modal.Overlay>

@@ -1,9 +1,10 @@
-query categories {
-  categories {
+query categories($filters: CategoryFiltersInput) {
+  categories(filters: $filters) {
     data {
       id
       attributes {
         Name
+        Slug
         products {
           data {
             ...ProductCard

@@ -28,7 +28,7 @@ export default function Index() {
             <li key={id} className="flex flex-col bg-white/5 rounded-xl">
               <Card.Large
                 title={attributes?.Name ?? ""}
-                links={[{ title: "Details", to: `/categories/${id}` }]}
+                links={[{ title: "Details", to: `/categories/${attributes?.Slug}` }]}
               >
                 <ul className="flex gap-5 p-5">
                   {attributes?.products?.data.map(({ id }) => (
