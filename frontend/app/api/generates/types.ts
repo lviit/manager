@@ -1054,13 +1054,17 @@ export type CategoriesQueryVariables = Exact<{
 }>;
 
 
-export type CategoriesQuery = { __typename?: 'Query', categories: { __typename?: 'CategoryEntityResponseCollection', data: Array<{ __typename?: 'CategoryEntity', id: string | null, attributes: { __typename?: 'Category', Name: string, Slug: string, products: { __typename?: 'ProductRelationResponseCollection', data: Array<{ __typename?: 'ProductEntity', id: string | null, attributes: { __typename?: 'Product', Name: string, Slug: string, Price: number, Brand: string, Website: string | null, image: { __typename?: 'UploadFileEntityResponse', data: { __typename?: 'UploadFileEntity', attributes: { __typename?: 'UploadFile', url: string } | null } | null } | null } | null }> } | null } | null }> } | null };
+export type CategoriesQuery = { __typename?: 'Query', categories: { __typename?: 'CategoryEntityResponseCollection', data: Array<{ __typename?: 'CategoryEntity', id: string | null, attributes: { __typename?: 'Category', Name: string, Slug: string, products: { __typename?: 'ProductRelationResponseCollection', data: Array<{ __typename?: 'ProductEntity', id: string | null, attributes: { __typename?: 'Product', Name: string, Slug: string, image: { __typename?: 'UploadFileEntityResponse', data: { __typename?: 'UploadFileEntity', attributes: { __typename?: 'UploadFile', url: string } | null } | null } | null } | null }> } | null } | null }> } | null };
 
-export type ProductCardFragment = { __typename?: 'ProductEntity', id: string | null, attributes: { __typename?: 'Product', Name: string, Slug: string, Price: number, Brand: string, Website: string | null, image: { __typename?: 'UploadFileEntityResponse', data: { __typename?: 'UploadFileEntity', attributes: { __typename?: 'UploadFile', url: string } | null } | null } | null } | null };
+export type CategoryCardFragment = { __typename?: 'CategoryEntity', id: string | null, attributes: { __typename?: 'Category', Name: string, Slug: string, products: { __typename?: 'ProductRelationResponseCollection', data: Array<{ __typename?: 'ProductEntity', id: string | null, attributes: { __typename?: 'Product', Name: string, Slug: string, image: { __typename?: 'UploadFileEntityResponse', data: { __typename?: 'UploadFileEntity', attributes: { __typename?: 'UploadFile', url: string } | null } | null } | null } | null }> } | null } | null };
 
-export type ProductsQueryVariables = Exact<{
+export type ProductCardFragment = { __typename?: 'ProductEntity', id: string | null, attributes: { __typename?: 'Product', Name: string, Slug: string, image: { __typename?: 'UploadFileEntityResponse', data: { __typename?: 'UploadFileEntity', attributes: { __typename?: 'UploadFile', url: string } | null } | null } | null } | null };
+
+export type ProductDetailsFragment = { __typename?: 'ProductEntity', id: string | null, attributes: { __typename?: 'Product', Name: string, Slug: string, Price: number, Brand: string, Website: string | null, image: { __typename?: 'UploadFileEntityResponse', data: { __typename?: 'UploadFileEntity', attributes: { __typename?: 'UploadFile', url: string } | null } | null } | null } | null };
+
+export type ProductQueryVariables = Exact<{
   filters: InputMaybe<ProductFiltersInput>;
 }>;
 
 
-export type ProductsQuery = { __typename?: 'Query', products: { __typename?: 'ProductEntityResponseCollection', data: Array<{ __typename?: 'ProductEntity', id: string | null, attributes: { __typename?: 'Product', Name: string, Price: number, Brand: string, Website: string | null } | null }> } | null };
+export type ProductQuery = { __typename?: 'Query', products: { __typename?: 'ProductEntityResponseCollection', data: Array<{ __typename?: 'ProductEntity', id: string | null, attributes: { __typename?: 'Product', Name: string, Slug: string, Price: number, Brand: string, Website: string | null, image: { __typename?: 'UploadFileEntityResponse', data: { __typename?: 'UploadFileEntity', attributes: { __typename?: 'UploadFile', url: string } | null } | null } | null } | null }> } | null };

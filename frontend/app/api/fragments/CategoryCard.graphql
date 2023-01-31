@@ -1,0 +1,12 @@
+fragment CategoryCard on CategoryEntity {
+  id
+  attributes {
+    Name
+    Slug
+    products {
+      data {
+        ...ProductCard
+      }
+    }
+  }
+}

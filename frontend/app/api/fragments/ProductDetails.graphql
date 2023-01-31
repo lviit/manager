@@ -1,8 +1,9 @@
-fragment ProductCard on ProductEntity {
+fragment ProductDetails on ProductEntity {
   id
   attributes {
     Name
     Slug
+    Price
     image {
       data {
         attributes {
@@ -10,5 +11,7 @@ fragment ProductCard on ProductEntity {
         }
       }
     }
+    Brand
+    Website
   }
 }

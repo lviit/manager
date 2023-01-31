@@ -5,6 +5,36 @@ export const ProductCard = gql`
   attributes {
     Name
     Slug
+    image {
+      data {
+        attributes {
+          url
+        }
+      }
+    }
+  }
+}
+    `;
+export const CategoryCard = gql`
+    fragment CategoryCard on CategoryEntity {
+  id
+  attributes {
+    Name
+    Slug
+    products {
+      data {
+        ...ProductCard
+      }
+    }
+  }
+}
+    ${ProductCard}`;
+export const ProductDetails = gql`
+    fragment ProductDetails on ProductEntity {
+  id
+  attributes {
+    Name
+    Slug
     Price
     image {
       data {
@@ -22,32 +52,17 @@ export const Categories = gql`
     query categories($filters: CategoryFiltersInput) {
   categories(filters: $filters) {
     data {
-      id
-      attributes {
-        Name
-        Slug
-        products {
-          data {
-            ...ProductCard
-          }
-        }
-      }
+      ...CategoryCard
     }
   }
 }
-    ${ProductCard}`;
-export const Products = gql`
-    query products($filters: ProductFiltersInput) {
+    ${CategoryCard}`;
+export const Product = gql`
+    query product($filters: ProductFiltersInput) {
   products(filters: $filters) {
     data {
-      id
-      attributes {
-        Name
-        Price
-        Brand
-        Website
-      }
+      ...ProductDetails
     }
   }
 }
-    `;
+    ${ProductDetails}`;

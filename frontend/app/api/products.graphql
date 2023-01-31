@@ -1,13 +1,7 @@
-query products($filters: ProductFiltersInput) {
+query product($filters: ProductFiltersInput) {
   products(filters: $filters) {
     data {
-      id
-      attributes {
-        Name
-        Price
-        Brand
-        Website
-      }
+      ...ProductDetails
     }
   }
 }
