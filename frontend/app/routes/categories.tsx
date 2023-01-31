@@ -21,7 +21,7 @@ export default function Index() {
 
   return (
     <div className="text-white/90 bg-stone-900 flex gap-5 p-5">
-      <div className="basis-50">
+      <div className="basis-2/4">
         <h1 className="mt-40 mb-5 text-5xl font-bold">Categories</h1>
         <ul className="flex flex-col gap-5">
           {data?.categories?.data.map(({ id, attributes }) => (
@@ -31,7 +31,7 @@ export default function Index() {
                 links={[{ title: "Details", to: `/categories/${attributes?.Slug}` }]}
               >
                 <ul className="flex gap-5 p-5">
-                  {attributes?.products?.data.map(({ id }) => (
+                  {attributes?.products?.data.slice(0,4).map(({ id }) => (
                     <li key={id} className="p-16 rounded-xl bg-white/5" />
                   ))}
                 </ul>

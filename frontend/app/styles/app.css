@@ -595,6 +595,10 @@ video {
   min-width: 500px;
 }
 
+.basis-2\/4 {
+  flex-basis: 50%;
+}
+
 .flex-col {
   flex-direction: column;
 }

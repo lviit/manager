@@ -52,7 +52,7 @@ export default function Index() {
   const outlet = useOutlet();
 
   return (
-    <motion.div className="basis-50 mt-40">
+    <motion.div className="basis-2/4 mt-40">
       <motion.div
         className="flex items-center justify-between gap-5 mb-5"
         variants={heading}
