@@ -45,6 +45,14 @@ export const ProductDetails = gql`
     }
     Brand
     Website
+    categories {
+      data {
+        attributes {
+          Name
+          Slug
+        }
+      }
+    }
   }
 }
     `;

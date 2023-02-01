@@ -13,5 +13,13 @@ fragment ProductDetails on ProductEntity {
     }
     Brand
     Website
+    categories {
+        data {
+            attributes {
+                Name
+                Slug
+            }
+        }
+    }
   }
 }

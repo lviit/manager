@@ -94,6 +94,11 @@ export type CategoryInput = {
   publishedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
+export type CategoryRelationResponseCollection = {
+  __typename?: 'CategoryRelationResponseCollection';
+  data: Array<CategoryEntity>;
+};
+
 export type DateTimeFilterInput = {
   and?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   between?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
@@ -481,11 +486,19 @@ export type Product = {
   Price: Scalars['Float'];
   Slug: Scalars['String'];
   Website?: Maybe<Scalars['String']>;
-  category?: Maybe<CategoryEntityResponse>;
+  categories?: Maybe<CategoryRelationResponseCollection>;
   createdAt?: Maybe<Scalars['DateTime']>;
   image?: Maybe<UploadFileEntityResponse>;
   publishedAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+
+export type ProductCategoriesArgs = {
+  filters?: InputMaybe<CategoryFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
 export type ProductEntity = {
@@ -512,7 +525,7 @@ export type ProductFiltersInput = {
   Slug?: InputMaybe<StringFilterInput>;
   Website?: InputMaybe<StringFilterInput>;
   and?: InputMaybe<Array<InputMaybe<ProductFiltersInput>>>;
-  category?: InputMaybe<CategoryFiltersInput>;
+  categories?: InputMaybe<CategoryFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   id?: InputMaybe<IdFilterInput>;
   not?: InputMaybe<ProductFiltersInput>;
@@ -527,7 +540,7 @@ export type ProductInput = {
   Price?: InputMaybe<Scalars['Float']>;
   Slug?: InputMaybe<Scalars['String']>;
   Website?: InputMaybe<Scalars['String']>;
-  category?: InputMaybe<Scalars['ID']>;
+  categories?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
   image?: InputMaybe<Scalars['ID']>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
 };
@@ -1060,11 +1073,11 @@ export type CategoryCardFragment = { __typename?: 'CategoryEntity', id: string |
 
 export type ProductCardFragment = { __typename?: 'ProductEntity', id: string | null, attributes: { __typename?: 'Product', Name: string, Slug: string, image: { __typename?: 'UploadFileEntityResponse', data: { __typename?: 'UploadFileEntity', attributes: { __typename?: 'UploadFile', url: string } | null } | null } | null } | null };
 
-export type ProductDetailsFragment = { __typename?: 'ProductEntity', id: string | null, attributes: { __typename?: 'Product', Name: string, Slug: string, Price: number, Brand: string, Website: string | null, image: { __typename?: 'UploadFileEntityResponse', data: { __typename?: 'UploadFileEntity', attributes: { __typename?: 'UploadFile', url: string } | null } | null } | null } | null };
+export type ProductDetailsFragment = { __typename?: 'ProductEntity', id: string | null, attributes: { __typename?: 'Product', Name: string, Slug: string, Price: number, Brand: string, Website: string | null, image: { __typename?: 'UploadFileEntityResponse', data: { __typename?: 'UploadFileEntity', attributes: { __typename?: 'UploadFile', url: string } | null } | null } | null, categories: { __typename?: 'CategoryRelationResponseCollection', data: Array<{ __typename?: 'CategoryEntity', attributes: { __typename?: 'Category', Name: string, Slug: string } | null }> } | null } | null };
 
 export type ProductQueryVariables = Exact<{
   filters: InputMaybe<ProductFiltersInput>;
 }>;
 
 
-export type ProductQuery = { __typename?: 'Query', products: { __typename?: 'ProductEntityResponseCollection', data: Array<{ __typename?: 'ProductEntity', id: string | null, attributes: { __typename?: 'Product', Name: string, Slug: string, Price: number, Brand: string, Website: string | null, image: { __typename?: 'UploadFileEntityResponse', data: { __typename?: 'UploadFileEntity', attributes: { __typename?: 'UploadFile', url: string } | null } | null } | null } | null }> } | null };
+export type ProductQuery = { __typename?: 'Query', products: { __typename?: 'ProductEntityResponseCollection', data: Array<{ __typename?: 'ProductEntity', id: string | null, attributes: { __typename?: 'Product', Name: string, Slug: string, Price: number, Brand: string, Website: string | null, image: { __typename?: 'UploadFileEntityResponse', data: { __typename?: 'UploadFileEntity', attributes: { __typename?: 'UploadFile', url: string } | null } | null } | null, categories: { __typename?: 'CategoryRelationResponseCollection', data: Array<{ __typename?: 'CategoryEntity', attributes: { __typename?: 'Category', Name: string, Slug: string } | null }> } | null } | null }> } | null };
