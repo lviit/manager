@@ -1,17 +1,15 @@
 import { json, type LoaderArgs } from "@remix-run/node";
 import { useMatches } from "@remix-run/react";
 import { useNavigate } from "react-router-dom";
-import type { LoaderFunction } from "@remix-run/node";
 
 import { graphqlRequest } from "~/api/graphqlRequest";
-import { type ProductDetailsFragment, type ProductQuery } from "~/api/generates/types";
+import { type ProductQuery } from "~/api/generates/types";
 import { Product } from "~/api/generates/documentNodes";
 import * as Modal from "~/components/Modal";
 import * as Button from "~/components/Button";
 import { useLoaderDataWithUnmount } from "~/utils/useLoaderDataWithUnmount";
 
-// TODO: fix typings
-export const loader: LoaderFunction = async ({ params: { productSlug } }: LoaderArgs) => {
+export const loader = async ({ params: { productSlug } }: LoaderArgs) => {
   const products = await graphqlRequest<ProductQuery>(Product, {
     filters: { Slug: { eq: productSlug } },
   });
@@ -24,7 +22,7 @@ export const loader: LoaderFunction = async ({ params: { productSlug } }: Loader
 export default function Index() {
   const navigate = useNavigate();
   const [_, __, prevPage] = useMatches();
-  const data = useLoaderDataWithUnmount<ProductDetailsFragment>();
+  const data = useLoaderDataWithUnmount<typeof loader>();
   const { Name, Price, Brand, Website, categories } = data.attributes || {};
 
   return (

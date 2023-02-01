@@ -1,15 +1,14 @@
-import { json, type LoaderArgs, type LoaderFunction } from "@remix-run/node";
+import { json, type LoaderArgs } from "@remix-run/node";
 import { useLoaderData, useOutlet } from "@remix-run/react";
 import { AnimatePresence, motion } from "framer-motion";
 
 import { graphqlRequest } from "~/api/graphqlRequest";
-import { type CategoryCardFragment, type CategoriesQuery } from "~/api/generates/types";
+import { type CategoriesQuery } from "~/api/generates/types";
 import { Categories } from "~/api/generates/documentNodes";
 import * as Button from "~/components/Button";
 import * as Card from "~/components/Card";
 
-// TODO: fix typings
-export const loader: LoaderFunction = async ({ params: { categorySlug } }: LoaderArgs) => {
+export const loader = async ({ params: { categorySlug } }: LoaderArgs) => {
   const categories = await graphqlRequest<CategoriesQuery>(Categories, {
     filters: { Slug: { eq: categorySlug } },
   });
@@ -47,7 +46,7 @@ const heading = {
 };
 
 export default function Index() {
-  const data = useLoaderData<CategoryCardFragment>();
+  const data = useLoaderData<typeof loader>();
   const { Name, products } = data?.attributes ?? {};
   const outlet = useOutlet();
 
