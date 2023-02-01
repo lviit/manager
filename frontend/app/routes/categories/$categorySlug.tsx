@@ -65,7 +65,7 @@ export default function Index() {
       <motion.ul className="flex flex-col gap-5" variants={list} initial="hidden" animate="visible">
         {products?.data.map(({ id, attributes }) => (
           <motion.li key={id} variants={card}>
-            <Card.Small to={`${attributes?.Slug}`}>
+            <Card.Small to={`products/${attributes?.Slug}`}>
               <div className="p-8 rounded-xl bg-white/5" />
               {attributes?.Name}
             </Card.Small>
