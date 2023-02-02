@@ -1,4 +1,4 @@
-import { Link } from "@remix-run/react";
+import { Link, type RouteMatch } from "@remix-run/react";
 import { type ReactNode } from "react";
 
 const classes =
@@ -10,10 +10,10 @@ export const AsLink = ({
   external,
 }: {
   children: ReactNode;
-  to: string;
+  to: string | RouteMatch;
   external?: boolean;
 }) =>
-  external ? (
+  external && typeof to === "string" ? (
     <a href={to} target="_blank" rel="noreferrer" className={classes}>
       {children}
     </a>

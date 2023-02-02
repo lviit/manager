@@ -1,3 +1,4 @@
+import { type RouteMatch } from "@remix-run/react";
 import { type ReactNode } from "react";
 import * as Button from "~/components/Button";
 
@@ -7,7 +8,7 @@ export const Large = ({
   title,
 }: {
   children: ReactNode;
-  links: { to: string; title: string; external?: boolean }[];
+  links: { to: string | RouteMatch; title: string; external?: boolean }[];
   title: string;
 }) => (
   <article className="flex flex-col bg-white/5 rounded-xl">
@@ -15,10 +16,10 @@ export const Large = ({
     <div className="py-2 px-4 flex justify-between items-center bg-white/5 rounded-b-xl">
       <h2 className="font-semibold text-2xl">{title}</h2>
       <ul className="flex gap-4">
-        {links.map((link, i) => (
+        {links.map(({to, external, title}, i) => (
           <li key={i}>
-            <Button.AsLink to={link.to} external={link.external}>
-              {link.title}
+            <Button.AsLink to={to} external={external}>
+              {title}
             </Button.AsLink>
           </li>
         ))}

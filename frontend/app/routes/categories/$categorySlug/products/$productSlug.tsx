@@ -1,6 +1,5 @@
 import { json, type LoaderArgs } from "@remix-run/node";
 import { useMatches } from "@remix-run/react";
-import { useNavigate } from "react-router-dom";
 
 import { graphqlRequest } from "~/api/graphqlRequest";
 import { type ProductQuery } from "~/api/generates/types";
@@ -16,18 +15,26 @@ export const loader = async ({ params: { productSlug } }: LoaderArgs) => {
 
   const [product] = products?.products?.data ?? [];
 
-  return json(product);
+  return json({ product, CONTENT_MANAGER_URL: process.env.CONTENT_MANAGER_URL });
 };
 
 export default function Index() {
-  const navigate = useNavigate();
   const [_, __, prevPage] = useMatches();
-  const data = useLoaderDataWithUnmount<typeof loader>();
-  const { Name, Price, Brand, Website, categories } = data.attributes || {};
+  const {product, CONTENT_MANAGER_URL} = useLoaderDataWithUnmount<typeof loader>();
+  const { Name, Price, Brand, Website, categories } = product.attributes || {};
 
   return (
     <Modal.Overlay>
-      <Modal.Container onClose={() => navigate(prevPage)}>
+      <Modal.Container
+        links={[
+          {
+            title: "Edit",
+            to: `${CONTENT_MANAGER_URL}/collectionType/api::product.product/${product.id}`,
+            external: true,
+          },
+          { title: "Close", to: prevPage },
+        ]}
+      >
         <h1 className="text-4xl font-bold mb-5">{Name}</h1>
         <dl>
           <dt>Categories</dt>

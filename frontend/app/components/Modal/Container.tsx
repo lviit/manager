@@ -1,7 +1,8 @@
 import type { ReactNode } from "react";
 import { motion } from "framer-motion";
+import { type RouteMatch } from "@remix-run/react";
 
-import { Button } from "~/components/Button";
+import * as Button from "~/components/Button";
 
 const container = {
   hidden: { y: -50, opacity: 0 },
@@ -11,10 +12,10 @@ const container = {
 
 export const Container = ({
   children,
-  onClose,
+  links,
 }: {
   children: ReactNode;
-  onClose?: () => void;
+  links: { to: string | RouteMatch; title: string; external?: boolean }[];
 }): JSX.Element => (
   <motion.div
     className="bg-stone-800 rounded-xl p-5 flex flex-col min-w-[500px]"
@@ -24,10 +25,14 @@ export const Container = ({
     exit="exit"
   >
     {children}
-    {onClose ? (
-      <div className="self-end mt-4">
-        <Button onClick={onClose}>Close</Button>
-      </div>
-    ) : null}
+    <ul className="flex gap-4 justify-end">
+      {links.map(({ to, external, title }, i) => (
+        <li key={i}>
+          <Button.AsLink to={to} external={external}>
+            {title}
+          </Button.AsLink>
+        </li>
+      ))}
+    </ul>
   </motion.div>
 );
